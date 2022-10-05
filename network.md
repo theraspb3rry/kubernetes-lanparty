@@ -29,7 +29,7 @@ When kubernetes runs a new pod, it first invokes the CNI plugins you've specifie
 So on every host (kubelets and masters), we configure a single bridge and CNI network that uses the bridge like this:
 
 ```
-cat <<EOF > /etc/netplan/10-bridge.conf
+cat <<EOF > /etc/netplan/10-bridge.yaml
 network:
   ethernets:
     eno1:
@@ -45,10 +45,11 @@ network:
   version: 2
 EOF
 
-netplan apply
+
+apply
 
 mkdir -p /etc/cni/net.d
-cat <<EOF> /etc/cni/net.d/10-bridge.conf 
+cat <<EOF> /etc/cni/net.d/10-bridge.yaml 
 {
   "name": "bridgenet",
   "type": "bridge",
